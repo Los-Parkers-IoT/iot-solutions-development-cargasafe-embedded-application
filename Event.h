@@ -16,8 +16,6 @@
 
 /**
  * @brief Enumerates possible event types.
- * 
- * Extend this enum as new sensors or modules are added.
  */
 enum EventType {
   EVENT_NONE = 0,
@@ -28,15 +26,13 @@ enum EventType {
 
 /**
  * @brief Represents an event emitted by a sensor or system component.
- * 
- * Each event carries a type and a message, allowing EventHandlers to respond appropriately.
  */
 struct Event {
-  EventType type;     ///< Type of event (e.g., EVENT_GPS_UPDATE, EVENT_DHT_UPDATE)
-  String message;     ///< Message or payload describing the event
+  EventType type;    
+  String message;    
 
   Event(EventType t = EVENT_NONE, String msg = "")
     : type(t), message(msg) {}
 };
 
-#endif // EVENT_H
+#endif 
