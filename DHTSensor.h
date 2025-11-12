@@ -13,27 +13,27 @@
 
 /**
  * @class DHTSensor
- * @brief Clase encargada de manejar el sensor DHT11.
+ * @brief Class responsible for managing the DHT11 sensor.
  */
 class DHTSensor : public Sensor {
 private:
-  DHT dht; ///< Instancia del sensor DHT
+  DHT dht; 
 
 public:
   /**
-   * @brief Constructor del sensor DHT11
-   * @param pin Pin donde está conectado el sensor
-   * @param handler Manejador de eventos opcional
+   * @brief DHT11 sensor constructor
+   * @param pin Pin where the sensor is connected
+   * @param handler Optional event handler
    */
   DHTSensor(int pin, EventHandler* handler = nullptr);
 
   /**
-   * @brief Inicializa el sensor DHT11
+   * @brief Initialize the DHT11 sensor
    */
   void begin() override;
 
   /**
-   * @brief Lee temperatura y humedad del sensor y dispara un evento
+   * @brief Reads temperature and humidity from the sensor and triggers an event
    */
   void read() override;
 };
