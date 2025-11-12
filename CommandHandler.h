@@ -13,7 +13,6 @@ public:
     : eventHandler(handler) {}
 
   virtual void begin() {
-    // Inicializer
   }
 
   virtual void handleCommand(const String& command) {
