@@ -19,7 +19,7 @@ EdgeCommunicatorHttp::EdgeCommunicatorHttp(const char* ssid,
   : ssid(ssid), password(password), url(url) {}
 
 void EdgeCommunicatorHttp::begin() {
-  Serial.println("[HTTP] Conectando a WiFi...");
+  Serial.println("[HTTP] Connecting to WiFi...");
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -27,12 +27,12 @@ void EdgeCommunicatorHttp::begin() {
     Serial.print(".");
   }
 
-  Serial.println("\n[HTTP] WiFi conectado.");
+  Serial.println("\n[HTTP] WiFi connected.");
 }
 
 void EdgeCommunicatorHttp::postJson(const String& json) {
   if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("[HTTP] WiFi desconectado.");
+    Serial.println("[HTTP] WiFi desconnected.");
     return;
   }
 
@@ -41,11 +41,11 @@ void EdgeCommunicatorHttp::postJson(const String& json) {
   http.addHeader("Content-Type", "application/json");
 
   int code = http.POST(json);
-  Serial.print("[HTTP] POST -> Código: ");
+  Serial.print("[HTTP] POST -> Code: ");
   Serial.println(code);
 
   if (code > 0) {
-    Serial.println("[HTTP] Respuesta:");
+    Serial.println("[HTTP] Response:");
     Serial.println(http.getString());
   }
 
@@ -88,10 +88,11 @@ void EdgeCommunicatorHttp::sendEvent(const Event& event) {
   String isoTime = getISOTime();
   json += ",\"created_at\":\"" + isoTime + "\"}";
 
-  Serial.println("[HTTP] Enviando JSON:");
+  Serial.println("[HTTP] Sending JSON:");
   Serial.println(json);
 
   postJson(json);
 }
+
 
 
