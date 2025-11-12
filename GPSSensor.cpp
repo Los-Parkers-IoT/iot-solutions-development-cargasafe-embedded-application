@@ -5,7 +5,7 @@ GPSSensor::GPSSensor(HardwareSerial* hwSerial, int rx, int tx, EventHandler* han
 
 void GPSSensor::begin() {
   serial->begin(9600, SERIAL_8N1, pin, txPin);
-  Serial.println("[GPS] Inicializado");
+  Serial.println("[GPS] Initializing");
 }
 
 void GPSSensor::read() {
