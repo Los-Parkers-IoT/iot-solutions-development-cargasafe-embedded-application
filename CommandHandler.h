@@ -13,12 +13,11 @@ public:
     : eventHandler(handler) {}
 
   virtual void begin() {
-    // Inicialización opcional (por ejemplo, iniciar Serial o comunicación)
+    // Inicializer
   }
 
   virtual void handleCommand(const String& command) {
-    // Lógica genérica para interpretar comandos
-    Serial.println("[CommandHandler] Comando recibido: " + command);
+    Serial.println("Response: " + command);
   }
 };
 
