@@ -5,7 +5,7 @@ DHTSensor::DHTSensor(int pin, EventHandler* handler)
 
 void DHTSensor::begin() {
   dht.begin();
-  Serial.println("[DHT11] Inicializado");
+  Serial.println("[DHT11] Initialized");
 }
 
 void DHTSensor::read() {
@@ -13,7 +13,7 @@ void DHTSensor::read() {
   float t = dht.readTemperature();
 
   if (isnan(h) || isnan(t)) {
-    on(Event(EVENT_ERROR, "Error al leer DHT11"));
+    on(Event(EVENT_ERROR, "Error reading DHT11"));
   } else {
     String data = "Temp: " + String(t) + " °C | Hum: " + String(h) + " %";
     on(Event(EVENT_DHT_UPDATE, data));
