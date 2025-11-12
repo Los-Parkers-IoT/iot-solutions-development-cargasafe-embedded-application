@@ -3,22 +3,18 @@
 
 #include "EventHandler.h"
 
-/**
- * @class Controller
- * @brief Clase base para todos los controladores del framework Modest IoT.
- */
 class Controller : public EventHandler {
 public:
   /**
-   * @brief Inicializa el controlador.
+   * @brief Initialize the controller.
    */
   virtual void begin() {}
 
   /**
-   * @brief Maneja un evento. Debe ser implementado por las subclases.
-   * @param event Evento recibido.
+   * @brief Handles an event. Must be implemented by subclasses.
+   * @param event Received event.
    */
   virtual void on(Event event) override = 0;
 };
 
-#endif // CONTROLLER_H
+#endif 
