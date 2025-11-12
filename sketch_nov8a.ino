@@ -5,8 +5,8 @@
 #define TXD2 17
 #define DHTPIN 25
 
-const char* WIFI_SSID = "IntroduzcaWIFI";
-const char* WIFI_PASS = "IntroduzcaContraseña";
+const char* WIFI_SSID = "WIFI";
+const char* WIFI_PASS = "Password";
 
 const char* EDGE_URL = "https://iot-solutions-development-cargasafe-edge.onrender.com/api/v1/telemetry-monitoring/data-records";
 
@@ -22,18 +22,17 @@ unsigned long lastReadGPS = 0;
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("=== Modest IoT Framework (HTTP MODE) ===");
 
   edge.begin();
 
   configTime(0, 0, "pool.ntp.org", "time.nist.gov");
-  Serial.println("Sincronizando hora NTP...");
+  Serial.println("Synchronizing NTP time...");
   delay(1000); 
 
   gps.begin();
   dht.begin();
 
-  Serial.println("Sensores inicializados correctamente.\n");
+  Serial.println("Sensors initialized successfully.\n");
 }
 
 void loop() {
