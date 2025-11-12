@@ -6,7 +6,7 @@
 
 /**
  * @class DataController
- * @brief Controlador que recibe y procesa eventos de sensores.
+ * @brief Controller that receives and processes sensor events.
  */
 class DataController : public EventHandler {
 private:
@@ -21,17 +21,17 @@ public:
 
     switch (event.type) {
       case EVENT_GPS_UPDATE:
-        Serial.println("Evento: GPS UPDATE");
+        Serial.println("Event: GPS UPDATE");
         Serial.println(event.message);
         break;
 
       case EVENT_DHT_UPDATE:
-        Serial.println("Evento: DHT UPDATE");
+        Serial.println("Event: DHT UPDATE");
         Serial.println(event.message);
         break;
 
       case EVENT_ERROR:
-        Serial.println("Evento: ERROR");
+        Serial.println("Event: ERROR");
         Serial.println(event.message);
         break;
     }
@@ -44,4 +44,4 @@ public:
   }
 };
 
-#endif // DATA_CONTROLLER_H
+#endif 
