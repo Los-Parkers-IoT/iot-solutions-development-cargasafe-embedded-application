@@ -8,7 +8,7 @@
 const char* WIFI_SSID = "WIFI";
 const char* WIFI_PASS = "Password";
 
-const char* EDGE_URL = "https://iot-solutions-development-cargasafe-edge.onrender.com/api/v1/telemetry-monitoring/data-records";
+const char* EDGE_URL = "http://192.168.1.47:5000/api/v1/telemetry-monitoring/data-records";
 
 HardwareSerial neogps(1);
 EdgeCommunicatorHttp edge(WIFI_SSID, WIFI_PASS, EDGE_URL);
