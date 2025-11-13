@@ -4,6 +4,7 @@
 #define RXD2 16
 #define TXD2 17
 #define DHTPIN 25
+#define LED_PIN 12
 
 const char* WIFI_SSID = "WIFI";
 const char* WIFI_PASS = "Password";
@@ -27,7 +28,7 @@ public:
     float t = dht.readTemperature();
 
     if (isnan(h) || isnan(t)) {
-      on(Event(EVENT_ERROR, "Error al leer DHT11"));
+      on(Event(EVENT_ERROR, "Error DHT11 is not reading"));
     } else {
       lastTemp = t;
       lastHum = h;
