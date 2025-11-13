@@ -18,7 +18,8 @@
 class DHTSensor : public Sensor {
 private:
   DHT dht; 
-
+  float lastTemperature;
+  float lastHumidity;
 public:
   /**
    * @brief DHT11 sensor constructor
@@ -36,6 +37,11 @@ public:
    * @brief Reads temperature and humidity from the sensor and triggers an event
    */
   void read() override;
+
+  float getTemperature();
+  
+  float getHumidity();
+
 };
 
 #endif
