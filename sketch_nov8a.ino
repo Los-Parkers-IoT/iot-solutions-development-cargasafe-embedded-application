@@ -14,11 +14,36 @@ HardwareSerial neogps(1);
 EdgeCommunicatorHttp edge(WIFI_SSID, WIFI_PASS, EDGE_URL);
 DataController controller(&edge);
 
+class DHTSensorExtended : public DHTSensor {
+public:
+  float lastTemp = NAN;
+  float lastHum = NAN;
+
+  DHTSensorExtended(int pin, EventHandler* handler = nullptr)
+    : DHTSensor(pin, handler) {}
+
+  void read() override {
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();
+
+    if (isnan(h) || isnan(t)) {
+      on(Event(EVENT_ERROR, "Error al leer DHT11"));
+    } else {
+      lastTemp = t;
+      lastHum = h;
+
+      String data = "Temp: " + String(t) + " °C | Hum: " + String(h) + " %";
+      on(Event(EVENT_DHT_UPDATE, data));
+    }
+  }
+};
+
 GPSSensor gps(&neogps, RXD2, TXD2, &controller);
 DHTSensor dht(DHTPIN, &controller);
 
 unsigned long lastReadDHT = 0;
 unsigned long lastReadGPS = 0;
+const float TEMP_THRESHOLD = 28.0;
 
 void setup() {
   Serial.begin(115200);
@@ -44,7 +69,21 @@ void loop() {
   }
 
   if (now - lastReadDHT >= 3000) {
-    dht.read();
+    dht.read(); 
     lastReadDHT = now;
+
+    if (!isnan(dht.lastTemp)) {
+      Serial.printf("Temperature: %.2f °C | Humidity: %.2f %%\n", dht.lastTemp, dht.lastHum);
+
+      if (dht.lastTemp > TEMP_THRESHOLD) {
+        digitalWrite(LED_PIN, HIGH);
+        Serial.println("HIGH TEMPERATURE");
+      } else {
+        digitalWrite(LED_PIN, LOW);
+        Serial.println("LOW TEMPERATURE");
+      }
+    }
+
+    Serial.println("------------------------------");
   }
 }
