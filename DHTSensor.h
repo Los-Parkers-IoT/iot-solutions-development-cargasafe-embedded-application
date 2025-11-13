@@ -16,7 +16,7 @@
  * @brief Class responsible for managing the DHT11 sensor.
  */
 class DHTSensor : public Sensor {
-private:
+protected:
   DHT dht; 
   float lastTemperature;
   float lastHumidity;
