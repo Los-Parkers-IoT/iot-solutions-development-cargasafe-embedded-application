@@ -19,3 +19,11 @@ void DHTSensor::read() {
     on(Event(EVENT_DHT_UPDATE, data));
   }
 }
+
+float DHTSensor::getTemperature() {
+  return lastTemperature;
+}
+
+float DHTSensor::getHumidity() {
+  return lastHumidity;
+}
