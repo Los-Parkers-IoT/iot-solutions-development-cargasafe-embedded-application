@@ -1,15 +1,15 @@
 #include "ModestIoT.h"
 #include "EdgeCommunicatorHttp.h"
+#include "DHTSensor.h"
 
 #define RXD2 16
 #define TXD2 17
 #define DHTPIN 25
 #define LED_PIN 12
 
-const char* WIFI_SSID = "WIFI";
-const char* WIFI_PASS = "Password";
-
-const char* EDGE_URL = "http://192.168.1.47:5000/api/v1/telemetry-monitoring/data-records";
+const char* WIFI_SSID = "DOMD";
+const char* WIFI_PASS = "14mad@2A837D*Fca";
+const char* EDGE_URL  = "http://192.168.1.47:5000/api/v1/telemetry-monitoring/data-records";
 
 HardwareSerial neogps(1);
 EdgeCommunicatorHttp edge(WIFI_SSID, WIFI_PASS, EDGE_URL);
@@ -39,8 +39,8 @@ public:
   }
 };
 
+DHTSensorExtended dht(DHTPIN, &controller);
 GPSSensor gps(&neogps, RXD2, TXD2, &controller);
-DHTSensor dht(DHTPIN, &controller);
 
 unsigned long lastReadDHT = 0;
 unsigned long lastReadGPS = 0;
@@ -49,11 +49,13 @@ const float TEMP_THRESHOLD = 28.0;
 void setup() {
   Serial.begin(115200);
 
-  edge.begin();
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
 
+  edge.begin();
   configTime(0, 0, "pool.ntp.org", "time.nist.gov");
   Serial.println("Synchronizing NTP time...");
-  delay(1000); 
+  delay(1000);
 
   gps.begin();
   dht.begin();
@@ -64,12 +66,12 @@ void setup() {
 void loop() {
   unsigned long now = millis();
 
-  if (now - lastReadGPS >= 2000) {
+  if (now - lastReadGPS >= 5000) {
     gps.read();
     lastReadGPS = now;
   }
 
-  if (now - lastReadDHT >= 3000) {
+  if (now - lastReadDHT >= 5000) {
     dht.read(); 
     lastReadDHT = now;
 
